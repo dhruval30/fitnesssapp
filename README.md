@@ -12,6 +12,9 @@ Hi, welcome to the **Fitness App**, a small web app that’s **Dockerized** and 
 - **Exercise Recommendations**: Personalized workout plans to help you crush your fitness goals. 
 - **AI-Powered Diet Plans**: Get a custom diet plan from an AI that understands your body type and goals. 
 
+### **Important!** 🚨
+To use the **AI Recommendation** features, you **must** have a **Groq API Key**. Without this, those features won’t work. Make sure you have your **Groq API Key** and set it in the environment variable `GROQ_API_KEY` before running the app. 
+
 ## **Tech Stack**
 
 - **Backend**: Flask (Python)

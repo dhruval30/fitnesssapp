@@ -1,12 +1,12 @@
 # **Fitness App - Dockerized & Deployed on AWS EC2**
 
-Yo! Welcome to the **Fitness App**, a cool little web app that’s **Dockerized** and deployed on **AWS EC2**. It's built using **Flask** and **MongoDB** to give you some awesome features like user login/signup, tracking your activity, personalized exercise recommendations, and even an AI-powered diet plan. The fun part? It’s all wrapped up in a **Docker container** and running on **AWS EC2**, making it **scalable** and **portable**!
+Hi, welcome to the **Fitness App**, a small web app that’s **Dockerized** and deployed on **AWS EC2**. It's built using **Flask** and **MongoDB** to give you some features like user login/signup, tracking your activity, personalized exercise recommendations, and even an AI-powered diet plan. It’s all wrapped up in a **Docker container** and running on **AWS EC2**, making it **scalable** and **portable**!
 
 ## **What It Does**
 
-- **Dockerized**: The app is packed in a Docker container so it's easy to deploy anywhere. You can scale it as much as you want. 
+- **Dockerized**: The app is packed in a Docker container so it's easy to deploy anywhere. 
 - **AWS EC2**: Hosted on an EC2 instance so it's always online and available. 
-- **MongoDB**: Stores your user data securely with MongoDB (Atlas or local). 
+- **MongoDB**: Stores your user data securely with MongoDB.
 - **User Authentication**: Secure login and signup so only you get access to your fitness data.
 - **Real-Time Activity Tracking**: Get your steps, heart rate, and calories burned in real-time. 
 - **Exercise Recommendations**: Personalized workout plans to help you crush your fitness goals. 
@@ -15,7 +15,7 @@ Yo! Welcome to the **Fitness App**, a cool little web app that’s **Dockerized*
 ## **Tech Stack**
 
 - **Backend**: Flask (Python)
-- **Database**: MongoDB (MongoDB Atlas or local MongoDB)
+- **Database**: MongoDB 
 - **Containerization**: Docker
 - **Hosting**: AWS EC2
 - **Frontend**: HTML templates for the UI
@@ -24,7 +24,7 @@ Yo! Welcome to the **Fitness App**, a cool little web app that’s **Dockerized*
 
 ### **1. Clone the Repo**
 
-First things first, clone the repo to your machine:
+Clone the repo to your machine:
 
 ```bash
 git clone https://github.com/yourusername/fitnessapp.git
@@ -48,13 +48,13 @@ To run the app inside the Docker container, just do this:
 docker run -p 5000:5000 fitnessapp
 ```
 
-Boom! You can now access your app locally at `http://localhost:5000`.
+You can now access your app locally at `http://localhost:5000`.
 
 ---
 
 ## **Deploying the App on AWS EC2**
 
-### **1. Spin Up an EC2 Instance**
+### **1. Fire Up an EC2 Instance**
 
 Go to the **EC2 Dashboard** on AWS and launch a new instance. Choose either **Amazon Linux 2** or **Ubuntu**.
 
@@ -92,7 +92,7 @@ sudo systemctl enable docker
 
 ### **4. Transfer Project Files to EC2**
 
-Use `scp` to send the project files to your EC2 instance:
+Use `scp` to move the project files to your EC2 instance:
 
 ```bash
 scp -i /path/to/your-key.pem -r /path/to/your/project ec2-user@your-ec2-public-ip:/home/ec2-user/
@@ -130,23 +130,3 @@ http://your-ec2-public-ip
 
 You should see your app running! 
 
----
-
-## **Optional: Auto-Restart Docker Container on EC2 Reboot**
-
-Want the Docker container to restart automatically if the EC2 instance reboots? Use this command:
-
-```bash
-docker run -d --restart unless-stopped -p 80:5000 fitnessapp
-```
-
-This will make sure the container always restarts when the instance reboots. 
-
----
-
-## **Troubleshooting** 
-
-- **MongoDB Connectivity**: If you’re using **MongoDB Atlas**, make sure the **IP of your EC2 instance** is added to the **MongoDB Atlas whitelist** under **Network Access**.
-- **Security Group Issues**: If you can’t access the app from a browser, check if the EC2 security group allows **HTTP (port 80)** access.
-
----

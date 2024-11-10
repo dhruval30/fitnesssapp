@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            background-color: #1e1e2f;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2b2b3d;
+            padding: 15px 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .navbar h1 {
+            margin: 0;
+            font-size: 40px;
+            color: #4a90e2;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: #4a90e2;
+        }
+        .logout-btn {
+            background-color: #4a90e2;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            color: #ffffff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .logout-btn:hover {
+            background-color: #357ab8;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            text-align: center;
+            padding: 20px;
+        }
+        .welcome-text {
+            max-width: 600px;
+        }
+        .welcome-text h2 {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        .welcome-text p {
+            color: #b0b0b5;
+            font-size: 25px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Fitness Tracker</h1>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="{{ url_for('ai_diet_plan') }}">AI Diet Plan</a>
+            <a href="{{ url_for('exercise_recommendation') }}">Exercise Recommendation</a>
+            <a href="{{ url_for('activity_tracking') }}">Activity Tracking</a>
+        </div>
+        <form action="{{ url_for('logout') }}" method="post" style="margin: 0;">
+            <button class="logout-btn" type="submit">Logout</button>
+        </form>
+    </div>
+
+    <div class="container">
+        <div class="welcome-text">
+            <h2>Welcome to Your Fitness Companion</h2>
+            <p>
+                This app is designed to support your journey to a healthier lifestyle. With features like an AI-powered diet planner, personalized exercise recommendations, and comprehensive activity tracking, you’ll have everything you need to stay motivated and reach your fitness goals. Explore the features above to start building your routine!
+            </p>
+        </div>
+    </div>
+</body>
+</html>

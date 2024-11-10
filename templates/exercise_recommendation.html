@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise Recommendation</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e1e2f, #1a1a2b);
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        .container {
+            background: rgba(43, 43, 61, 0.95);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+        }
+
+        h2 {
+            color: #4a90e2;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        label, input, select {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        input, select {
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background-color: #3c3c4d;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .submit-btn {
+            background-color: #4a90e2;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 18px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #357ab8;
+            transform: scale(1.05);
+        }
+
+        .result {
+            margin-top: 20px;
+            background-color: #3c3c4d;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            max-height: 250px;
+            overflow-y: auto;
+            text-align: left;
+            color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Exercise Recommendation</h2>
+        <form id="exerciseForm" method="POST">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" required>
+
+            <label for="height">Height (cm)</label>
+            <input type="number" id="height" name="height" required>
+
+            <label for="weight">Weight (kg)</label>
+            <input type="number" id="weight" name="weight" required>
+
+            <label for="body_type">Body Type</label>
+            <select id="body_type" name="body_type" required>
+                <option value="pear_shaped">Pear Shaped</option>
+                <option value="apple_shaped">Apple Shaped</option>
+                <option value="rectangle">Rectangle</option>
+                <option value="hourglass">Hourglass</option>
+                <option value="inverted_triangle">Inverted Triangle</option>
+            </select>
+
+            <label for="exercise_behavior">Exercise Behavior</label>
+            <select id="exercise_behavior" name="exercise_behavior" required>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+            </select>
+
+            <label for="workout_frequency">How many times do you workout in a week?</label>
+            <input type="number" id="workout_frequency" name="workout_frequency" required>
+
+            <label for="goal">End Goal</label>
+            <select id="goal" name="goal" required>
+                <option value="lose_weight">Lose Weight</option>
+                <option value="build_muscle">Build Muscle</option>
+                <option value="maintain_fitness">Maintain Fitness</option>
+            </select>
+
+            <button type="submit" class="submit-btn">Get Exercise Plan</button>
+        </form>
+
+        <div class="result" id="exercisePlanResult" style="display: none;">
+            <!-- response will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('exerciseForm').onsubmit = async function(event) {
+            event.preventDefault();  
+            const formData = new FormData(this);
+            const response = await fetch('{{ url_for("exercise_recommendation") }}', {
+                method: 'POST',
+                body: formData
+            });
+            let resultText = await response.text();
+
+            resultText = resultText
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n/g, '<br>');
+
+            const resultDiv = document.getElementById('exercisePlanResult');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `<strong>Exercise Plan Recommendation:</strong><br>${resultText}`;
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Diet Plan</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e1e2f, #1a1a2b);
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        .container {
+            background: rgba(43, 43, 61, 0.95);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 750px;
+            text-align: center;
+            position: relative;
+        }
+
+        .assistant-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #4a90e2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #ffffff;
+            margin: 0 auto 20px;
+        }
+
+        h2 {
+            color: #4a90e2;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .assistant-message {
+            font-size: 18px;
+            color: #b0b0b5;
+            margin-bottom: 25px;
+        }
+
+        label, input, select {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        input, select {
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background-color: #3c3c4d;
+            color: #ffffff;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .submit-btn {
+            background-color: #4a90e2;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 18px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #357ab8;
+            transform: scale(1.05);
+        }
+
+        .result {
+            margin-top: 20px;
+            background-color: #3c3c4d;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 20px;
+            max-height: 250px;
+            overflow-y: auto;
+            text-align: left;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .result::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .result::-webkit-scrollbar-thumb {
+            background-color: #4a90e2;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="assistant-icon">🤖</div>
+        <h2>AI Diet Assistant</h2>
+        <p class="assistant-message">Let’s craft a personalized diet plan based on your profile. Just fill out the details below!</p>
+        
+        <form id="dietPlanForm" method="POST">
+            <label for="weight">Current Weight (kg)</label>
+            <input type="number" id="weight" name="weight" required>
+
+            <label for="height">Current Height (cm)</label>
+            <input type="number" id="height" name="height" required>
+
+            <label for="body_type">Body Type</label>
+            <select id="body_type" name="body_type" required>
+                <option value="pear_shaped">Pear Shaped</option>
+                <option value="apple_shaped">Apple Shaped</option>
+                <option value="rectangle">Rectangle</option>
+                <option value="hourglass">Hourglass</option>
+                <option value="inverted_triangle">Inverted Triangle</option>
+            </select>
+
+            <label for="diet_pref">Dietary Preference</label>
+            <select id="diet_pref" name="diet_pref" required>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="non_vegetarian">Non-Vegetarian</option>
+                <option value="vegan">Vegan</option>
+            </select>
+
+            <label for="goal">Goal</label>
+            <select id="goal" name="goal" required>
+                <option value="lose_weight">Lose Weight</option>
+                <option value="bulk_up">Bulk Up</option>
+                <option value="maintain_weight">Maintain Weight</option>
+            </select>
+
+            <button type="submit" class="submit-btn">Get Diet Plan</button>
+        </form>
+
+        <div class="result" id="dietPlanResult" style="display: none;">
+            <!-- response will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('dietPlanForm').onsubmit = async function(event) {
+            event.preventDefault();  
+            const formData = new FormData(this);
+            const response = await fetch('{{ url_for("ai_diet_plan") }}', {
+                method: 'POST',
+                body: formData
+            });
+            const resultText = await response.text();
+            const resultDiv = document.getElementById('dietPlanResult');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `<strong>Diet Plan Recommendation:</strong><br>${resultText}`;
+        };
+    </script>
+    <script>
+        document.getElementById('dietPlanForm').onsubmit = async function(event) {
+            event.preventDefault();  
+            const formData = new FormData(this);
+            const response = await fetch('{{ url_for("ai_diet_plan") }}', {
+                method: 'POST',
+                body: formData
+            });
+            
+            let resultText = await response.text();
+            
+            resultText = resultText
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')  
+                .replace(/\n/g, '<br>');  
+            
+            const resultDiv = document.getElementById('dietPlanResult');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `<strong>Diet Plan Recommendation:</strong><br>${resultText}`;
+        };
+    </script>
+    
+</body>
+</html>

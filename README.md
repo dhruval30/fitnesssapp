@@ -1,6 +1,3 @@
-Here's an informal, more conversational version of your **README.md**:
-
-```markdown
 # **Fitness App - Dockerized & Deployed on AWS EC2**
 
 Yo! Welcome to the **Fitness App**, a cool little web app that’s **Dockerized** and deployed on **AWS EC2**. It's built using **Flask** and **MongoDB** to give you some awesome features like user login/signup, tracking your activity, personalized exercise recommendations, and even an AI-powered diet plan. The fun part? It’s all wrapped up in a **Docker container** and running on **AWS EC2**, making it **scalable** and **portable**!

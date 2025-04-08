@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.secret_key = "gsjhgfshgf"  
 
 # MongoDB configuration
-app.config["MONGO_URI"] = "mongodb+srv://dhruval:2V0Aegnl7SYBTEBr@carpool-app.wtiwm.mongodb.net/fitness_app"  # Update this URI for your MongoDB setup
+app.config["MONGO_URI"] = ""  # Update this URI for your MongoDB setup
 mongo = PyMongo(app)
 
 @app.route('/')
